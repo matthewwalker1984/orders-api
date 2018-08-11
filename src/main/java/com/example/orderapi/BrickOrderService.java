@@ -37,4 +37,15 @@ public class BrickOrderService implements OrderService {
     public List<Order> getOrders() {
         return orderRepository.findAll();
     }
+
+    @Override
+    public String updateOrder(String reference, int newQuantity) {
+        Order order = orderRepository.findByOrderReference(reference);
+
+        order.setQuantity(newQuantity);
+
+        orderRepository.save(order);
+
+        return reference;
+    }
 }

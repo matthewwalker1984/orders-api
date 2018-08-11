@@ -27,13 +27,20 @@ public class OrderController {
         return new ResponseEntity<>(orderReference, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/orders")
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public List<Order> getOrders() {
         return orderService.getOrders();
     }
 
-    @RequestMapping(value = "/orders/{orderReference}")
+    @RequestMapping(value = "/orders/{orderReference}", method = RequestMethod.GET)
     public Order getOrder(@PathVariable String orderReference) {
         return orderService.getOrderByReference(orderReference);
+    }
+
+    @RequestMapping(value = "/orders/{orderReference}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateOrder(@PathVariable String orderReference, @RequestBody OrderRequestDTO request) {
+        String newReference = orderService.updateOrder(orderReference, request.getQuantity());
+
+        return new ResponseEntity<>(newReference, HttpStatus.ACCEPTED);
     }
 }

@@ -9,10 +9,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -97,5 +102,23 @@ public class OrderIT {
 
         // then all the orders are returned
         Assert.assertArrayEquals(orders.toArray(), responseEntity.getBody());
+    }
+
+    @Test
+    public void givenACustomerHasPlacedAnOrder_whenAnUpdateRequestIsSubmitted_thenAnOrderReferenceIsReturned() throws URISyntaxException {
+        // given a customer has created an order
+        Order order = new Order(1,10);
+        order.setOrderReference("reference");
+
+        repository.save(order);
+
+        OrderRequestDTO requestDTO = new OrderRequestDTO(1, 100);
+        RequestEntity request = new RequestEntity<>(requestDTO, HttpMethod.PUT, new URI("/orders/reference"));
+
+        // when an update request is submitted
+        ResponseEntity<String> responseEntity = restTemplate.exchange(request, String.class);
+
+        // then an order reference is returned
+        Assert.assertNotNull(responseEntity.getBody());
     }
 }

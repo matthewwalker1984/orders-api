@@ -57,5 +57,14 @@ public class OrderControllerTest {
 
         Mockito.verify(orderService).getOrders();
     }
+
+    @Test
+    public void updateOrderShouldCallTheServiceMethod() {
+        OrderRequestDTO requestDTO = new OrderRequestDTO(1, 10);
+
+        orderController.updateOrder("reference", requestDTO);
+
+        Mockito.verify(orderService).updateOrder("reference", 10);
+    }
 }
 

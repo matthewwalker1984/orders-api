@@ -1,5 +1,6 @@
 package com.example.orderapi;
 
+import org.aspectj.weaver.ast.Or;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,5 +47,20 @@ public class BrickOrderServiceTest {
         service.getOrders();
 
         Mockito.verify(orderRepository).findAll();
+    }
+
+    @Test
+    public void updateOrderShouldSaveTheUpdatedOrder() {
+        Order order = new Order(1, 10);
+        order.setOrderReference("reference");
+
+        Mockito.when(orderRepository.findByOrderReference("reference")).thenReturn(order);
+
+        service.updateOrder("reference", 100);
+
+        ArgumentCaptor<Order> argumentCaptor = ArgumentCaptor.forClass(Order.class);
+        Mockito.verify(orderRepository).save(argumentCaptor.capture());
+
+        Assert.assertEquals(100, argumentCaptor.getValue().getQuantity());
     }
 }
