@@ -20,7 +20,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void whenAnOrderRequestIsSubmittedTheOrderServiceIsCalled() {
+    public void createOrderShouldCallTheServiceMethod() {
         // given an order request
         OrderRequestDTO request = new OrderRequestDTO(1, 10);
 
@@ -32,7 +32,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void whenAnOrderRequestIsSubmittedTheOrderIsReturned() {
+    public void createOrderShouldReturnTheOrder() {
         // given an order request
         OrderRequestDTO request = new OrderRequestDTO(1, 10);
 
@@ -47,4 +47,19 @@ public class OrderControllerTest {
         // then the submitted order is returned
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void getOrderShouldCallTheServiceMethod() {
+        orderController.getOrder("reference");
+
+        Mockito.verify(orderService).getOrderByReference("reference");
+    }
+
+    @Test
+    public void getOrdersShouldCallTheServiceMethod() {
+        orderController.getOrders();
+
+        Mockito.verify(orderService).getOrders();
+    }
 }
+

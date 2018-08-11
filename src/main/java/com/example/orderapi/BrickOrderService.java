@@ -3,6 +3,7 @@ package com.example.orderapi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,5 +26,15 @@ public class BrickOrderService implements OrderService {
         orderRepository.save(order);
 
         return order;
+    }
+
+    @Override
+    public Order getOrderByReference(String orderReference) {
+        return orderRepository.findByOrderReference(orderReference);
+    }
+
+    @Override
+    public List<Order> getOrders() {
+        return orderRepository.findAll();
     }
 }

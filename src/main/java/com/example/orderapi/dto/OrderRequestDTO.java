@@ -2,12 +2,12 @@ package com.example.orderapi.dto;
 
 public class OrderRequestDTO {
 
-    private int customerId;
-    private int quantity;
+    private Integer customerId;
+    private Integer quantity;
 
     public OrderRequestDTO() {}
 
-    public OrderRequestDTO(int customerId, int quantity) {
+    public OrderRequestDTO(Integer customerId, Integer quantity) {
         this.customerId = customerId;
         this.quantity = quantity;
     }

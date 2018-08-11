@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
 public class OrderController {
 
@@ -18,9 +21,19 @@ public class OrderController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO orderRequest) {
+    public ResponseEntity<Order> createOrder(@Valid @RequestBody OrderRequestDTO orderRequest) {
         Order order = orderService.createOrder(orderRequest.getCustomerId(), orderRequest.getQuantity());
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/orders")
+    public List<Order> getOrders() {
+        return orderService.getOrders();
+    }
+
+    @RequestMapping(value = "/orders/{orderReference}")
+    public Order getOrder(@PathVariable String orderReference) {
+        return orderService.getOrderByReference(orderReference);
     }
 }
