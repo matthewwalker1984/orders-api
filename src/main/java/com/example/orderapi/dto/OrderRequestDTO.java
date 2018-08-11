@@ -5,6 +5,8 @@ public class OrderRequestDTO {
     private int customerId;
     private int quantity;
 
+    public OrderRequestDTO() {}
+
     public OrderRequestDTO(int customerId, int quantity) {
         this.customerId = customerId;
         this.quantity = quantity;
