@@ -17,7 +17,7 @@ public class BrickOrderService implements OrderService {
     }
 
     @Override
-    public Order createOrder(int customerId, int quantity) {
+    public String createOrder(int customerId, int quantity) {
         String orderReference = UUID.randomUUID().toString();
 
         Order order = new Order(customerId, quantity);
@@ -25,7 +25,7 @@ public class BrickOrderService implements OrderService {
 
         orderRepository.save(order);
 
-        return order;
+        return orderReference;
     }
 
     @Override

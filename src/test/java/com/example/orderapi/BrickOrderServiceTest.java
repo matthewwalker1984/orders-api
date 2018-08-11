@@ -20,22 +20,17 @@ public class BrickOrderServiceTest {
     }
 
     @Test
-    public void createOrderShouldReturnTheOrder() {
-        Order order = service.createOrder(1, 10);
+    public void createOrderShouldReturnTheOrderReference() {
+        String reference = service.createOrder(1, 10);
 
-        Assert.assertEquals(1, order.getCustomerId());
-        Assert.assertEquals(10, order.getQuantity());
-        Assert.assertNotNull(order.getOrderReference());
+        Assert.assertNotNull(reference);
     }
 
     @Test
     public void createOrderShouldPersistTheOrder() {
-        ArgumentCaptor<Order> argumentCaptor = ArgumentCaptor.forClass(Order.class);
+        service.createOrder(1, 10);
 
-        Order order = service.createOrder(1, 10);
-
-        Mockito.verify(orderRepository).save(argumentCaptor.capture());
-        Assert.assertEquals(order, argumentCaptor.getValue());
+        Mockito.verify(orderRepository).save(Mockito.any(Order.class));
     }
 
     @Test

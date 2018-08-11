@@ -38,12 +38,10 @@ public class OrderIT {
         OrderRequestDTO orderRequest = new OrderRequestDTO(1, 100);
 
         // when the request is submitted
-        Order order = restTemplate.postForObject("/orders", orderRequest, Order.class);
+        String orderReference = restTemplate.postForObject("/orders", orderRequest, String.class);
 
         // then an order reference is returned
-        Assert.assertEquals(1, order.getCustomerId());
-        Assert.assertEquals(100, order.getQuantity());
-        Assert.assertNotNull(order.getOrderReference());
+        Assert.assertNotNull(orderReference);
     }
 
     @Test
@@ -52,7 +50,7 @@ public class OrderIT {
         OrderRequestDTO orderRequest = new OrderRequestDTO(1, 100);
 
         // when the request is submitted
-        ResponseEntity<Order> responseEntity = restTemplate.postForEntity("/orders", orderRequest, Order.class);
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity("/orders", orderRequest, String.class);
 
         Assert.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     }

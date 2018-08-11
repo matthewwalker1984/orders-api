@@ -21,10 +21,10 @@ public class OrderController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Order> createOrder(@Valid @RequestBody OrderRequestDTO orderRequest) {
-        Order order = orderService.createOrder(orderRequest.getCustomerId(), orderRequest.getQuantity());
+    public ResponseEntity<String> createOrder(@Valid @RequestBody OrderRequestDTO orderRequest) {
+        String orderReference = orderService.createOrder(orderRequest.getCustomerId(), orderRequest.getQuantity());
 
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
+        return new ResponseEntity<>(orderReference, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/orders")

@@ -21,31 +21,27 @@ public class OrderControllerTest {
 
     @Test
     public void createOrderShouldCallTheServiceMethod() {
-        // given an order request
+        Mockito.when(orderService.createOrder(1, 10)).thenReturn("reference");
+
         OrderRequestDTO request = new OrderRequestDTO(1, 10);
 
-        // when the request is submitted
         orderController.createOrder(request);
 
-        // then the order service should be called;
         Mockito.verify(orderService).createOrder(1, 10);
     }
 
     @Test
-    public void createOrderShouldReturnTheOrder() {
-        // given an order request
+    public void createOrderShouldReturnTheOrderReference() {
         OrderRequestDTO request = new OrderRequestDTO(1, 10);
 
         Order expected = new Order(1, 10);
         expected.setOrderReference("testOrder");
 
-        Mockito.when(orderService.createOrder(1, 10)).thenReturn(expected);
+        Mockito.when(orderService.createOrder(1, 10)).thenReturn("testOrder");
 
-        // when the order request is submitted
-        Order actual = orderController.createOrder(request).getBody();
+        String reference = orderController.createOrder(request).getBody();
 
-        // then the submitted order is returned
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals("testOrder", reference);
     }
 
     @Test
