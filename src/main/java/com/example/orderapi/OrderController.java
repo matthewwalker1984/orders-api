@@ -2,13 +2,11 @@ package com.example.orderapi;
 
 import com.example.orderapi.dto.OrderRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@RestController()
-@RequestMapping(value = "/orders")
+@RestController
 public class OrderController {
 
     private OrderService orderService;
@@ -18,8 +16,11 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping
-    public Order createOrder(@RequestBody OrderRequestDTO orderRequest) {
-        return orderService.createOrder(orderRequest.getCustomerId(), orderRequest.getQuantity());
+    @RequestMapping(value = "/orders", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Order> createOrder(@RequestBody OrderRequestDTO orderRequest) {
+        Order order = orderService.createOrder(orderRequest.getCustomerId(), orderRequest.getQuantity());
+
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 }

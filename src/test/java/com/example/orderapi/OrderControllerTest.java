@@ -42,7 +42,7 @@ public class OrderControllerTest {
         Mockito.when(orderService.createOrder(1, 10)).thenReturn(expected);
 
         // when the order request is submitted
-        Order actual = orderController.createOrder(request);
+        Order actual = orderController.createOrder(request).getBody();
 
         // then the submitted order is returned
         Assert.assertEquals(expected, actual);
