@@ -1,33 +1,21 @@
 package com.example.orderapi;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "orders")
 public class Order {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
+    @Id
     private String orderReference;
-    private long customerId;
-    private long quantity;
+    private int customerId;
+    private int quantity;
 
     public Order() {}
 
-    public Order(long customerId, long quantity) {
+    public Order(int customerId, int quantity) {
         this.customerId = customerId;
         this.quantity = quantity;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getOrderReference() {
@@ -38,19 +26,19 @@ public class Order {
         this.orderReference = orderReference;
     }
 
-    public void setCustomerId(long customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 
-    public long getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }
