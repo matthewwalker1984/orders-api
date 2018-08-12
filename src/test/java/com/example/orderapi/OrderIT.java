@@ -1,7 +1,6 @@
 package com.example.orderapi;
 
 import com.example.orderapi.dto.OrderRequestDTO;
-import org.aspectj.weaver.ast.Or;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,8 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@ActiveProfiles("it")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class OrderIT {

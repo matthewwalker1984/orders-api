@@ -1,3 +1,9 @@
 spring:
   jpa:
     show-sql: true
+    generate-ddl: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db:5432/orders_db
+    username: orders
+    password: orders-password

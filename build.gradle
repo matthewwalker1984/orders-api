@@ -29,5 +29,10 @@ dependencies {
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 
+    runtime group: 'org.postgresql', name: 'postgresql', version: '42.2.4'
     runtime group: 'com.h2database', name: 'h2'
+}
+
+bootRun {
+    jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8003']
 }

@@ -1,0 +1,21 @@
+version: '3'
+services:
+  api:
+    build: .
+    container_name: api
+    ports:
+      - "8080:8080"
+      - "8003:8003"
+    volumes:
+      - .:/opt/app
+      - gradle_cache_api:/opt/gradle/caches
+    command: ["gradle", "bootRun"]
+  db:
+    image: postgres:10
+    environment:
+      POSTGRES_USER: orders
+      POSTGRES_PASSWORD: orders-password
+      POSTGRES_DB: orders_db
+volumes:
+  postgres_data:
+  gradle_cache_api:
