@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8003
 
-RUN gradle clean dependencies
+RUN gradle clean test
